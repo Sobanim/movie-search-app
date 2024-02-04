@@ -1,4 +1,4 @@
-interface IMovie {
+interface IMovieDetail {
   Title: string
   Year: string
   Rated: string
@@ -38,7 +38,7 @@ interface ISearchMovies {
 interface ISearchMovie {
   Title: string
   Year: string
-  imbdID: string
+  imdbID: string
   Type: string
   Poster: string
 }

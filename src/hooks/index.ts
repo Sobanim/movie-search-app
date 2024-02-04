@@ -1,27 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
+import { fetchDetailMovie, fetchSearchMovies } from '../services/movie'
 
 export const useMovieDetailQuery = (title: string) => {
-  return useQuery<IMovie, Error>({
+  return useQuery<IMovieDetail, Error>({
     queryKey: ['movieDetail', title],
-    queryFn: async () => {
-      const response = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&t=${encodeURIComponent(title)}`)
-      if (!response.ok) {
-        throw new Error('Some things wrong :(')
-      }
-      return await response.json()
-    }
+    queryFn: async () => await fetchDetailMovie(title)
   })
 }
 
-export const useMovieSearch = (searchText: string) => {
+export const useFetchMovies = (title: string) => {
   return useQuery<any, Error>({
-    queryKey: ['searchMovie', searchText],
-    queryFn: async () => {
-      const res = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${encodeURIComponent(searchText)}`)
-      if (!res.ok) {
-        throw new Error('Some things wrong :(')
-      }
-    },
-    enabled: searchText.length >= 3
+    queryKey: ['searchMovies', title],
+    queryFn: async () => await fetchSearchMovies(title),
+    enabled: title.length > 2
   })
 }
