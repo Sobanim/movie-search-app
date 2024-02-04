@@ -1,4 +1,4 @@
-interface Movie {
+interface IMovie {
   Title: string
   Year: string
   Rated: string
@@ -13,7 +13,7 @@ interface Movie {
   Country: string
   Awards: string
   Poster: string
-  Ratings: Array<{ Source: string, Value: string }>
+  Ratings: IMovieRating[]
   Metascore: string
   imdbRating: string
   imdbVotes: string
@@ -24,4 +24,21 @@ interface Movie {
   Production: string
   Website: string
   Response: string
+}
+
+interface IMovieRating {
+  Source: string
+  Value: string
+}
+
+interface ISearchMovies {
+  Search: ISearchMovie[]
+}
+
+interface ISearchMovie {
+  Title: string
+  Year: string
+  imbdID: string
+  Type: string
+  Poster: string
 }

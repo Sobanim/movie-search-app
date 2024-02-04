@@ -3,11 +3,12 @@ import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import FilmDetail from './pages/FilmDetail'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Home from './pages/Home'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <FilmDetail />
+    element: <Home />
   },
   {
     path: '/detail',
