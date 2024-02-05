@@ -1,4 +1,4 @@
-const BASE = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}`
+const BASE = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}`
 
 export const fetchSearchMovies = async (searchTitle: string): Promise<ISearchMovies> => {
   const response = await fetch(`${BASE}&type=movie&s=${encodeURIComponent(searchTitle)}`)
