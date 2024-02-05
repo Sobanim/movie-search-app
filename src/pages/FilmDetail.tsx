@@ -1,21 +1,34 @@
 import React, { type FC, useState } from 'react'
-import { Alert, Button, CircularProgress, Container, Rating, Snackbar, Stack, Typography } from '@mui/material'
+import { Alert, Button, CircularProgress, Container, Snackbar, Stack, Typography } from '@mui/material'
 import { EmojiEvents, Favorite, FavoriteBorder } from '@mui/icons-material'
 import { useMovieDetailQuery } from '../hooks'
 import { useParams } from 'react-router-dom'
 import IMDBIcon from '../components/IMDBIcon'
 import { StyledIconWrapper } from '../components/style'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFavorite, removeFavorite } from '../redux/favoriteSlice'
+import { type RootState } from '../redux/store'
 
 const FilmDetail: FC = () => {
   const { id } = useParams()
   const { data, isPending, error } = useMovieDetailQuery(id ?? '')
+  const dispatch = useDispatch()
 
-  const [isFavorite, setIsFavorite] = useState<boolean>(false)
+  const favorites: IMovieDetail[] = useSelector((state: RootState) => state.favorites.movies)
+  const isFavorite = favorites.some((favorites: { imdbID: string }) => favorites.imdbID === data?.imdbID)
+
   const [openNotification, setOpenNotification] = useState<boolean>(false)
 
-  const addToFavorite = (): void => {
+  const toggleFavorite = (): void => {
+    if (data && isFavorite) {
+      dispatch(removeFavorite(data.imdbID))
+    } else {
+      dispatch(addFavorite(data as IMovieDetail))
+    }
     setOpenNotification(true)
   }
+
+  console.log(favorites)
 
   const handleClose = (): void => {
     setOpenNotification(false)
@@ -105,9 +118,15 @@ const FilmDetail: FC = () => {
                             <Typography variant={'caption'} align={'center'} color={'darkgray'} fontFamily={'fantasy'}>{data?.imdbVotes}</Typography>
                         </Stack>
                         <Stack direction={'row'} alignItems={'center'}>
-                            <Button variant="contained" color="success" onClick={addToFavorite}
-                                    endIcon={ isFavorite ? <Favorite /> : <FavoriteBorder />}
-                            >Add to Favorite</Button>
+                            {isFavorite
+                              ? (
+                                  <Button variant='outlined' color='success' onClick={toggleFavorite} endIcon={<Favorite />}>In favorite</Button>
+                                )
+                              : (
+                                  <Button variant="contained" color="success" onClick={toggleFavorite}
+                                          endIcon={ <FavoriteBorder />}
+                                    >Add to Favorite</Button>
+                                )}
                         </Stack>
                     </Stack>
                 </div>

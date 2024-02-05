@@ -1,5 +1,5 @@
 import React, { type FC, type InputHTMLAttributes } from 'react'
-import { SearchContainer, SearchWrapper } from './style'
+import { SearchContainer } from './style'
 
 const CustomSearch: FC<InputHTMLAttributes<HTMLInputElement>> = (props) => {
   return (

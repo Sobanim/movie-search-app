@@ -4,6 +4,10 @@ export const SearchWrapper = styled.div`
     width: 650px;
     margin: 0 auto;
     font-family: 'Raleway', sans-serif;
+    
+    @media (max-width: 767px) {
+        width: 100%;
+    }
 `
 
 export const SearchContainer = styled.div`
@@ -35,6 +39,10 @@ export const SearchContainer = styled.div`
         transition: all 250ms ease-in-out;
         backface-visibility: hidden;
         transform-style: preserve-3d;
+        
+        @media (max-width: 767px) {
+            padding: 12px 5px;
+        }
 
         &::placeholder {
             color: rgba(87, 87, 86, 0.8);
@@ -60,14 +68,26 @@ export const SearchResults = styled.div`
     flex-wrap: wrap;
     gap: 1.6rem;
     
+    @media (max-width: 767px) {
+        width: 100%;
+        gap: unset;
+        justify-content: space-between;
+    }
+    
     & a div {
         flex: 46%;
         & img {
             width: 140px;
+            @media (max-width: 767px) {
+                width: 140px;
+            }
         }
         & h2 {
             font-size: 16px;
             max-width: 140px;
+            @media (max-width: 767px) {
+                width: 90px;
+            }
         }
     }
 `

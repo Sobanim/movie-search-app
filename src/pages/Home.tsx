@@ -1,9 +1,10 @@
 import React, { type FC, useState } from 'react'
 import { useFetchMovies } from '../hooks'
 import { Link } from 'react-router-dom'
-import { Box, CircularProgress, Container, Stack } from '@mui/material'
-import CustomSearch from '../components/CustomeSearch/CustomeSearch'
-import { SearchResults, SearchWrapper } from '../components/CustomeSearch/style'
+import { CircularProgress, Container, Stack } from '@mui/material'
+import CustomSearch from '../components/Search/CustomeSearch'
+import { SearchResults, SearchWrapper } from '../components/Search/style'
+import SearchItem from '../components/Search/SearchItem'
 
 const Home: FC = () => {
   const [searchMovie, setSearchMovie] = useState<string>('')
@@ -16,8 +17,6 @@ const Home: FC = () => {
 
   return (
       <Container maxWidth={'md'}>
-          <h1>Home</h1>
-
           <SearchWrapper>
               <CustomSearch
                   placeholder={'Search for movies...'}
@@ -33,13 +32,13 @@ const Home: FC = () => {
                 : null}
               <SearchResults>
                   {data?.Search?.map((resultSearch: ISearchMovie) => (
-                      <Link key={resultSearch.imdbID} to={`/detail/${resultSearch.imdbID}`}>
-                          <Stack direction={'column'} spacing={1} mt={2} justifyContent={'space-between'}>
-                              <h2>{resultSearch.Title} ({resultSearch.Year})</h2>
-                              <img src={resultSearch.Poster} alt={resultSearch.Title} title={resultSearch.Title}/>
-                          </Stack>
-
-                      </Link>
+                    <SearchItem
+                        key={resultSearch.imdbID}
+                        id={resultSearch.imdbID}
+                        title={resultSearch.Title}
+                        year={resultSearch.Year}
+                        poster={resultSearch.Poster}
+                    />
                   ))}
               </SearchResults>
           </SearchWrapper>
