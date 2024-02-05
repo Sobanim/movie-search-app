@@ -5,8 +5,7 @@ export const fetchSearchMovies = async (searchTitle: string): Promise<ISearchMov
   if (!response.ok) {
     throw new Error('Network response was not ok')
   }
-  const result = await response.json()
-  return result.Search
+  return await response.json()
 }
 
 export const fetchDetailMovie = async (title: string) => {
