@@ -13,8 +13,8 @@ const Footer: FC = () => {
           }}
       >
           <Container maxWidth="lg">
-              <Typography variant="body1" align="center">
-                  My Footer Content
+              <Typography variant="body2" align="center">
+                  Created by Dmytro Soboliev
               </Typography>
               <Typography variant="body2" color="text.secondary" align="center">
                   {'Copyright © '}
@@ -22,7 +22,6 @@ const Footer: FC = () => {
                   {/*     Your Website */}
                   {/* </Link>{' '} */}
                   {new Date().getFullYear()}
-                  {'.'}
               </Typography>
           </Container>
       </Box>

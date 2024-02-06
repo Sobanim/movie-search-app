@@ -17,7 +17,7 @@ export const SearchContainer = styled.div`
         //font-size: 22px;
         font-weight: 900;
         text-align: center;
-        color: #ff8b88;
+        color: slategrey;
     }
 
     & input {
@@ -67,11 +67,13 @@ export const SearchResults = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 1.6rem;
+    margin-top: 20px;
     
     @media (max-width: 767px) {
         width: 100%;
-        gap: unset;
+        gap: 0.5rem;
         justify-content: space-between;
+        margin-top: 10px;
     }
     
     & a div {
@@ -79,7 +81,7 @@ export const SearchResults = styled.div`
         & img {
             width: 140px;
             @media (max-width: 767px) {
-                width: 140px;
+                width: 160px;
             }
         }
         & h2 {

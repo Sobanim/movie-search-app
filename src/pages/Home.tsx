@@ -1,6 +1,5 @@
 import React, { type FC, useState } from 'react'
 import { useFetchMovies } from '../hooks'
-import { Link } from 'react-router-dom'
 import { CircularProgress, Container, Stack } from '@mui/material'
 import CustomSearch from '../components/Search/CustomeSearch'
 import { SearchResults, SearchWrapper } from '../components/Search/style'

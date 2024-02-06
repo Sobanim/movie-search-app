@@ -1,13 +1,15 @@
 import React, { type FC, useState } from 'react'
-import { Alert, Button, CircularProgress, Container, Snackbar, Stack, Typography } from '@mui/material'
+import { Alert, Button, CircularProgress, Container, IconButton, Snackbar, Stack, Typography } from '@mui/material'
 import { EmojiEvents, Favorite, FavoriteBorder } from '@mui/icons-material'
 import { useMovieDetailQuery } from '../hooks'
 import { useParams } from 'react-router-dom'
-import IMDBIcon from '../components/IMDBIcon'
+import IMDBIcon from '../components/icons/IMDBIcon'
 import { StyledIconWrapper } from '../components/style'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFavorite, removeFavorite } from '../redux/favoriteSlice'
 import { type RootState } from '../redux/store'
+import StarIcon from '@mui/icons-material/Star'
+import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 const FilmDetail: FC = () => {
   const { id } = useParams()
@@ -17,21 +19,25 @@ const FilmDetail: FC = () => {
   const favorites: IMovieDetail[] = useSelector((state: RootState) => state.favorites.movies)
   const isFavorite = favorites.some((favorites: { imdbID: string }) => favorites.imdbID === data?.imdbID)
 
-  const [openNotification, setOpenNotification] = useState<boolean>(false)
+  const [addToFavorite, setAddToFavorite] = useState<boolean>(false)
+  const [removeFromFavorites, setRemoveFromFavorites] = useState<boolean>(false)
 
   const toggleFavorite = (): void => {
     if (data && isFavorite) {
       dispatch(removeFavorite(data.imdbID))
+      setRemoveFromFavorites(true)
     } else {
       dispatch(addFavorite(data as IMovieDetail))
+      setAddToFavorite(true)
     }
-    setOpenNotification(true)
   }
 
-  console.log(favorites)
+  const handleCloseAddToFavorite = (): void => {
+    setAddToFavorite(false)
+  }
 
-  const handleClose = (): void => {
-    setOpenNotification(false)
+  const handleCloseRemoveFromFavorites = (): void => {
+    setRemoveFromFavorites(false)
   }
 
   if (isPending) {
@@ -43,11 +49,25 @@ const FilmDetail: FC = () => {
     )
   }
 
-  if (error) return <p>An error has occurred: + {error.message}</p>
+  if (error) return <p>Somethings wrong :( + {error.message}</p>
 
   return (
         <Container maxWidth={'md'}>
-            <h1>{data?.Title} ({data?.Year})</h1>
+            <h1>
+                {data?.Title} ({data?.Year})
+                { isFavorite
+                  ? (
+                    <IconButton title={'In Favorites'} onClick={toggleFavorite}>
+                        <StarIcon htmlColor={'darkorange'}/>
+                    </IconButton>
+                    )
+                  : (
+                    <IconButton title={'Add to favorite'} onClick={toggleFavorite}>
+                        <StarBorderIcon htmlColor={'darkorange'}/>
+                    </IconButton>
+                    ) }
+            </h1>
+
             <Stack direction={'row'} spacing={2}>
                 <div>
                     <img src={data?.Poster} alt={data?.Title} title={`${data?.Title} (${data?.Year})`}/>
@@ -120,7 +140,7 @@ const FilmDetail: FC = () => {
                         <Stack direction={'row'} alignItems={'center'}>
                             {isFavorite
                               ? (
-                                  <Button variant='outlined' color='success' onClick={toggleFavorite} endIcon={<Favorite />}>In favorite</Button>
+                                  <Button variant='outlined' color='success' onClick={toggleFavorite} endIcon={<Favorite />}>In favorites</Button>
                                 )
                               : (
                                   <Button variant="contained" color="success" onClick={toggleFavorite}
@@ -132,9 +152,14 @@ const FilmDetail: FC = () => {
                 </div>
             </Stack>
 
-            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={openNotification} autoHideDuration={3000} onClose={handleClose}>
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={addToFavorite} autoHideDuration={3000} onClose={handleCloseAddToFavorite}>
                 <Alert variant="filled" severity="success">
                     Successfully added!
+                </Alert>
+            </Snackbar>
+            <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={removeFromFavorites} autoHideDuration={3000} onClose={handleCloseRemoveFromFavorites}>
+                <Alert variant="filled" severity="info">
+                    Removed from Favorites
                 </Alert>
             </Snackbar>
         </Container>

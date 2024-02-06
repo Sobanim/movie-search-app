@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchDetailMovie, fetchSearchMovies } from '../services/movie'
+import { fetchDetailMovie, fetchSearchMovies } from '../services/movieFetch'
 
 export const useMovieDetailQuery = (title: string) => {
   return useQuery<IMovieDetail, Error>({

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Box, Container, Stack } from '@mui/material'
 import SearchItem from '../components/Search/SearchItem'
 import type { RootState } from '../redux/store'
+import { StyledFavoriteMovie } from '../components/style'
 
 const Favorites: FC = () => {
   const favoritesMovies: IMovieDetail[] = useSelector((state: RootState) => state?.favorites?.movies)
@@ -21,14 +22,14 @@ const Favorites: FC = () => {
             <h1>Your favorites movie list</h1>
             <Stack flexWrap={'wrap'} flexDirection={'row'} gap={2}>
                 {favoritesMovies.map(movie => (
-                    <Box key={movie.imdbID} maxWidth={'200px'}>
+                    <StyledFavoriteMovie key={movie.imdbID}>
                         <SearchItem
                             id={movie.imdbID}
                             title={movie.Title}
                             year={movie.Year}
                             poster={movie.Poster}
                         />
-                    </Box>
+                    </StyledFavoriteMovie>
 
                 ))}
             </Stack>
