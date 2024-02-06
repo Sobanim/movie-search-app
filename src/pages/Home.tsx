@@ -1,16 +1,23 @@
 import React, { type FC, useState } from 'react'
 import { useFetchMovies } from '../hooks'
-import { CircularProgress, Container, Stack } from '@mui/material'
+import { Button, CircularProgress, Container, Stack } from '@mui/material'
 import CustomSearch from '../components/Search/CustomeSearch'
 import SearchItem from '../components/Search/SearchItem'
 import { SearchResults, SearchWrapper } from '../components/style'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectMovies, selectPage, selectSearchText, setPage, setSearchText } from '../redux/searchSlice'
 
 const Home: FC = () => {
+  const dispatch = useDispatch()
+  const searchText = useSelector(selectSearchText)
+  const page = useSelector(selectPage)
+  const movies = useSelector(selectMovies)
+
   const [searchMovie, setSearchMovie] = useState<string>('')
 
-  const { data, isFetching, error } = useFetchMovies(searchMovie)
+  const { data, isFetching, error } = useFetchMovies(searchText, page)
 
-  // console.log('error', error)
+  console.log(page)
 
   if (error) return <p>An error has occurred: + {error.message}</p>
 
@@ -19,8 +26,8 @@ const Home: FC = () => {
           <SearchWrapper>
               <CustomSearch
                   placeholder={'Search for movies...'}
-                  value={searchMovie}
-                  onChange={(e) => { setSearchMovie(e.target.value) }}
+                  value={searchText}
+                  onChange={(e) => { dispatch(setSearchText(e.target.value)) }}
               />
               {isFetching
                 ? (
@@ -40,6 +47,9 @@ const Home: FC = () => {
                     />
                   ))}
               </SearchResults>
+              <Stack justifyContent={'center'}>
+                <Button onClick={() => { dispatch(setPage(page + 1)) }}>Load More</Button>
+              </Stack>
           </SearchWrapper>
       </Container>
   )
