@@ -68,7 +68,7 @@ const FilmDetail: FC = () => {
                     ) }
             </h1>
 
-            <Stack direction={'row'} spacing={2}>
+            <Stack direction={{ sm: 'column', md: 'row' }} spacing={2}>
                 <div>
                     <img src={data?.Poster} alt={data?.Title} title={`${data?.Title} (${data?.Year})`}/>
                 </div>

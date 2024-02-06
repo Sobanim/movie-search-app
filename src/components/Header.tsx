@@ -23,8 +23,8 @@ const Header: FC = () => {
                         Home
                       </RouterLink>
                   </Button>
-                  <Button color="primary" style={{ textDecoration: 'none' }}>
-                      <RouterLink to={'/favorites'}>
+                  <Button color="primary">
+                      <RouterLink to={'/favorites'} style={{ textDecoration: 'none' }}>
                         Favorites
                       </RouterLink>
                   </Button>

@@ -1,6 +1,6 @@
 import React, { type FC } from 'react'
 import { useSelector } from 'react-redux'
-import { Box, Container, Stack } from '@mui/material'
+import { Container, Stack } from '@mui/material'
 import SearchItem from '../components/Search/SearchItem'
 import type { RootState } from '../redux/store'
 import { StyledFavoriteMovie } from '../components/style'

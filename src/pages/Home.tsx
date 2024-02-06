@@ -2,8 +2,8 @@ import React, { type FC, useState } from 'react'
 import { useFetchMovies } from '../hooks'
 import { CircularProgress, Container, Stack } from '@mui/material'
 import CustomSearch from '../components/Search/CustomeSearch'
-import { SearchResults, SearchWrapper } from '../components/Search/style'
 import SearchItem from '../components/Search/SearchItem'
+import { SearchResults, SearchWrapper } from '../components/style'
 
 const Home: FC = () => {
   const [searchMovie, setSearchMovie] = useState<string>('')
