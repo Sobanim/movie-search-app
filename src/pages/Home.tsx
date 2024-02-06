@@ -5,7 +5,7 @@ import CustomSearch from '../components/Search/CustomeSearch'
 import SearchItem from '../components/Search/SearchItem'
 import { SearchResults, SearchWrapper } from '../components/style'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectMovies, selectPage, selectSearchText, setPage, setSearchText } from '../redux/searchSlice'
+import { selectPage, selectSearchText, setPage, setSearchText } from '../redux/searchSlice'
 
 const Home: FC = () => {
   const dispatch = useDispatch()
