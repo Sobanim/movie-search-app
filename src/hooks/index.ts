@@ -8,10 +8,10 @@ export const useMovieDetailQuery = (title: string) => {
   })
 }
 
-export const useFetchMovies = (title: string) => {
+export const useFetchMovies = (title: string, page: number) => {
   return useQuery<ISearchMovies, Error>({
-    queryKey: ['searchMovies', title],
-    queryFn: async () => await fetchSearchMovies(title),
+    queryKey: ['searchMovies', title, page],
+    queryFn: async () => await fetchSearchMovies(title, page),
     enabled: title.length > 2
   })
 }

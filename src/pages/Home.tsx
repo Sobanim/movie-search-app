@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react'
+import React, { type FC } from 'react'
 import { useFetchMovies } from '../hooks'
 import { Button, CircularProgress, Container, Stack } from '@mui/material'
 import CustomSearch from '../components/Search/CustomeSearch'
@@ -11,13 +11,8 @@ const Home: FC = () => {
   const dispatch = useDispatch()
   const searchText = useSelector(selectSearchText)
   const page = useSelector(selectPage)
-  const movies = useSelector(selectMovies)
-
-  const [searchMovie, setSearchMovie] = useState<string>('')
 
   const { data, isFetching, error } = useFetchMovies(searchText, page)
-
-  console.log(page)
 
   if (error) return <p>An error has occurred: + {error.message}</p>
 
