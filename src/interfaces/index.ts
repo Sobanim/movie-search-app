@@ -35,12 +35,6 @@ interface ISearchMovies {
   Search: ISearchMovie[]
 }
 
-interface ISearchResult {
-  items: ISearchMovies
-  totalResults: number
-  page: number
-}
-
 interface ISearchMovie {
   Title: string
   Year: string
